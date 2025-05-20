@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>ADD DIRECTOR DETAILS</title>
+        <link rel='stylesheet' href='./form.css'>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    </head>
+    <body> 
+        <div class='container'>
+            <form action='/insertDirector' method='POST'>
+                <div class='form first'>
+                    <div class='details personal'>
+                        <span class='title'>Director Details</span>
+                        <div class='fields'>
+                            <div class='input-field'>
+                                <label>Actor Name</label>
+                                <input type='text' name='dName' placeholder='Director Name'>
+                            </div>
+                            <div class='input-field'>
+                                <label>Date Of Birth</label>
+                                <input type='date' name='dob' placeholder='Date Of Birth'>
+                            </div>
+                            <div class='input-field'>
+                                <label>Movies</label>
+                                <select id="movieSelect" name = 'movie' multiple = 'multiple'>
+                                    <option>Select</option>
+                                </select>
+                            </div>
+                            <div class='button'>
+                                <input type='submit' name='submit' value='Upload' class='btn btn-primary'>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </body>
+</html>
+<script>
+    $(document).ready(function(){
+        $('#movieSelect').select2({
+            placeholder: 'Select Movie(s)',
+            allowClear: true
+        })
+        fetch('/movies')
+        .then(res=>{
+            if(!res.ok)
+                throw new Error('Connection');
+            return res.json();
+        })
+        .then(data=>{
+            data.forEach(movie => {
+                const select = document.getElementById('movieSelect')
+                const option = document.createElement('option');
+                option.value = movie.title;
+                option.innerHTML = movie.title.replace(/\b\w/g, c => c.toUpperCase());
+                select.append(option);
+            });
+        })
+    })
+</script>
