@@ -1,0 +1,45 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: "Baskerville Old Face",sans-serif;
+}
+.carousel-item{
+    height:100vh;
+}
+.slide-one, .slide-two, .slide-three, .slide-four, .slide-five,.slide-six{
+    background-image: url(./images/i-30.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.carousel-item .row{
+   margin: 12% 5%; 
+}
+.carousel-item h1{
+    margin-top: 60px;
+    font-weight: bold;
+    color: #fff;
+}
+.carousel-item p{
+    margin-top: 30px 0 50px;
+    font-size: 20px;
+    color: #fff;
+}
+.carousel-item button{
+    padding: 10px 20px;
+    background-color: #fff;
+    border: 0;
+    outline: none;
+    border-radius: 20px;
+    color:black;
+    font-weight: bold;
+    font-size: 13px;
+}
+.slide-two h2,.slide-two p{
+    color: #f9fcfd;
+}
+.carousel-item h2{
+    margin-top: 60px;
+    font-weight: bold;
+    color: #fff;
+}
