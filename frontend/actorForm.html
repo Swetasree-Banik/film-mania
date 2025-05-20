@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>ADD ACTORS DETAILS</title>
+        <link rel='stylesheet' href='./form.css'>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    </head>
+    <body> 
+        <div class='container'>
+            <form action='/insertActor' method='POST'>
+                <div class='form first'>
+                    <div class='details personal'>
+                        <span class='title'>Actor Details</span>
+                        <div class='fields'>
+                            <div class='input-field'>
+                                <label>Actor Name</label>
+                                <input type='text' name='aName' placeholder='Actor Name' required>
+                            </div>
+                            <div class='input-field'>
+                                <label>Date Of Birth</label>
+                                <input type='date' name='dob' placeholder='Date Of Birth' required>
+                            </div>
+                            <div class='input-field'>
+                                <label>Movies</label>
+                                <select id="movieSelect" name = 'movie' multiple = 'multiple' required>
+                                    <option> Select </option>
+                                </select>
+                            </div>
+                            <div class='input-field'>
+                                <label>Role</label>
+                                <input type='text' name='role' placeholder='Enter role here for different movie separated by "#" and for the same movie "$" and enter the role in the sequence as you select the movie'>
+                            </div>
+                            <div class='input-field'>
+                                <label>Quote</label>
+                                <input type='text' name='quote' placeholder='Enter quotes here for different movie separated by "#" and for the same movie "$" and enter the quote in the sequence as you select the movie'>
+                            </div>
+                            <div class='button'>
+                                <input type='submit' name='submit' value='Upload' class='btn btn-primary'>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </body>
+</html>
+
+<script>
+    $(document).ready(function(){
+        $('#movieSelect').select2({
+            placeholder: 'Select Movie',
+            allowClear: true
+        })
+
+        fetch('/movies')
+        .then(res=>{
+            if(!res.ok)
+                throw new Error('Connection Failed');
+            return res.json();
+        })
+        .then(data=>{
+            const select = document.getElementById('movieSelect');
+            data.forEach(movie => {
+                const option = document.createElement('option')
+                option.value = movie.title
+                option.innerHTML = movie.title.replace(/\b\w/g, c => c.toUpperCase())
+                select.append(option)
+            });
+        })
+    })
+</script>
