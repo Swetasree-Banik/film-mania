@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+        <meta name='viewport' content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1'>
+            <title>Movie Details</title>
+            <!----css3---->
+            <link rel='stylesheet' href='./custom.css'>
+            <!--google fonts -->
+            <link rel='preconnect' href='https://fonts.googleapis.com'>
+            <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap' rel='stylesheet'>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!--google material icon-->
+        <link href='https://fonts.googleapis.com/css2?family=Material+Icons' rel='stylesheet'>
+
+    </head>
+<body>
+<div class='main-content'>
+    <div class='row'>
+        <div class ='form-details'>
+            <form method="get" action="/getAllDetails" id="getMovieDetails">
+                <div id="range" class="form-group" >
+                    <label>Enter year range:</label>
+                    <input type="text" id="frange" name="frange" placeholder="First range">
+                    <input type="text" id="lrange" name="lrange" placeholder="Last range">
+                </div>
+                <div class="form-group submit-class">
+                    <input type="submit" value="Proceed">
+                </div>
+            </form>
+        </div>
+        <div class='table-wrapper'>
+        <div class='table-title'>
+            <div class='row'>
+                <div class='col-sm-6 p-0 flex justify-content-lg-start justify-content-center'>
+                <h2 class='ml-lg-2'>All Details</h2>
+                </div>
+            </div>
+        </div>
+        
+        <table class='table table-striped table-hover'>
+            <thead>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Movie Title</th>
+                    <th>Year Of Release</th>
+                    <th>Director</th>
+                    <th>Genre</th>
+                    <th>Production Company</th>
+                    <th>Running Length</th>
+                </tr>
+            </thead>
+            <tbody id= 'movieDetails'>
+
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const movieForm = document.getElementById('getMovieDetails');
+            movieForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(movieForm);
+                const params = new URLSearchParams(formData);
+
+                fetch(`/getAllDetails?${params.toString()}`)
+                .then(res=>{
+                    if(!res.ok)
+                        throw new Error('Connection Problem');
+                    return res.json()
+                })
+                .then(data=>{
+                console.log('56')
+                const tbody = document.getElementById('movieDetails');
+                tbody.innerHTML = '';
+                let i =0 ;
+                data.forEach(movie => {
+                    console.log(i)
+                    const row = document.createElement('tr');
+                    const capitalizedGenreList = movie.genre.split(',').map(genre => genre.charAt(0).toUpperCase() + genre.slice(1)).join(', ');
+                    row.innerHTML =
+                        `<td>${i+1}</td>
+                        <td>${movie.title}</td>
+                        <td>${movie.year_of_release}</td>
+                        <td>${movie.dName}</td>
+                        <td>${capitalizedGenreList}</td>
+                        <td>${movie.pName}</td>
+                        <td>${movie.length}</td>
+                        `;
+                    tbody.append(row);
+                    i++;
+                });
+            })
+            .catch(err => console.error('Error fetching', err));
+
+            });
+        });
+    </script>
+    </body>
+</html>
