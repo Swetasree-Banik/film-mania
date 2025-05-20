@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "A movie management system",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swetasree-Banik/film-mania.git"
+  },
+  "author": "Swetasree Banik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Swetasree-Banik/film-mania/issues"
+  },
+  "homepage": "https://github.com/Swetasree-Banik/film-mania#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.1.10"
+  }
+}
