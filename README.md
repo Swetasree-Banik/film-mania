@@ -153,8 +153,7 @@ The main objective of this mini project was to learn and implement:
 
 ---
 
-## 👩‍💻 Author
+# 👩‍🔬 Author
 
-**Swetasree Banik**
-
----
+Swetasree Banik
+M.Sc Mini Project
